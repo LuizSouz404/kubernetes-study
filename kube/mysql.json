@@ -1,0 +1,79 @@
+{
+  "apiVersion": "apps/v1",
+  "kind": "StatefulSet",
+  "metadata": {
+    "name": "mysql",
+    "labels": {
+      "app": "mysql"
+    }
+  },
+  "spec": {
+    "serviceName": "mysql-svc",
+    "replicas": 1,
+    "selector": {
+      "matchLabels": {
+        "app": "mysql"
+      }
+    },
+    "volumeClaimTemplates": [
+      {
+        "metadata": {
+          "name": "db-storage-mysql"
+        },
+        "spec": {
+          "storageClassName": "standard",
+          "accessModes": ["ReadWriteOnce"],
+          "resources": {
+            "requests": {
+              "storage": "1Gi"
+            }
+          }
+        }
+      }
+    ],
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "mysql"
+        }
+      },
+      
+      "spec": {
+        "containers": [{
+          "name": "mysql",
+          "image": "mysql:latest",
+          "env": [
+            {
+              "name": "MYSQL_USER",
+              "value": "root"
+            },
+            {
+              "name": "MYSQL_DATABASE",
+              "value": "study_golang"
+            },
+            {
+              "name": "MYSQL_PASSWORD",
+              "value": "123456"
+            },
+            {
+              "name": "MYSQL_ROOT_PASSWORD",
+              "value": "123456"
+            }
+          ],
+          "ports": [
+            {
+              "containerPort": 3306,
+              "name": "mysqldb"
+            }
+          ],
+          "volumeMounts": [
+            {
+              "mountPath": "/var/lib/mysql/data",
+              "name": "db-storage-mysql"
+            }
+          ]
+        }]
+      }
+    }
+  }
+}
