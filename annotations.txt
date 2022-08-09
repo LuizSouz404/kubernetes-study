@@ -1,0 +1,41 @@
+docker login
+
+docker build -t app api-rest-go
+
+docker tag app luizsouz404/k8s-study
+
+docker push luizsouz404/k8s-study
+
+# ------
+
+minikube start 
+kubectl get node
+kubectl get svc
+
+minikube dashboard
+
+mkdir kubeconfig 
+    create mysql.json 
+        kubectl create -f mysql.json
+        kubectl get sts -w
+        kubectl describe statefulset mysql
+        kubectl get pod 
+        kubectl describe pod 
+        
+    create mysql-svc.json 
+        kubectl create -f mysql.json
+        kubectl get svc -w
+        kubectl describe service mysql-svc
+
+    create api.json 
+            kubectl create -f api-dpy.json
+            kubectl get deploy -w
+            kubectl describe deploy api-rest-go
+            kubectl get pod -w
+            kubectl logs api-rest-go-76b6bd4d7c-559r5
+    create api-svc.json 
+                kubectl create -f api-svc.json
+                kubectl get svc -w
+                kubectl describe service api-rest-go-svc
+
+    minikube service api-rest-go

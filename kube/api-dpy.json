@@ -29,20 +29,20 @@
           }],
           "env": [
             {
+              "name": "DB_HOST",
+              "value": "172.17.0.6"
+            },
+            {
               "name": "DB_USER",
               "value": "root"
             },
             {
+              "name": "DB_NAME",
+              "value": "study_golang"
+            },
+            {
               "name": "DB_PASS",
               "value": "123456"
-            },
-            {
-              "name": "DB_HOST",
-              "value": "localhost"
-            },
-            {
-              "name": "DB_NAME",
-              "value": "golang_api"
             },
             {
               "name": "JWT_SECRET",
