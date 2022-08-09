@@ -1,0 +1,56 @@
+{
+  "apiVersion": "apps/v1",
+  "kind": "Deployment",
+  "metadata": {
+    "name": "api-rest-go",
+    "labels": {
+      "app": "api-rest-go"
+    }
+  },
+  "spec": {
+    "replicas": 1,
+    "selector": {
+      "matchLabels": {
+        "app": "api-rest-go"
+      }
+    },
+    "template": {
+      "metadata":{
+        "labels": {
+          "app":"api-rest-go"
+        }
+      },
+      "spec": {
+        "containers": [{
+          "name": "api-rest-go",
+          "image": "luizsouz404/k8s-study",
+          "ports": [{
+            "containerPort": 3000
+          }],
+          "env": [
+            {
+              "name": "DB_USER",
+              "value": "root"
+            },
+            {
+              "name": "DB_PASS",
+              "value": "123456"
+            },
+            {
+              "name": "DB_HOST",
+              "value": "localhost"
+            },
+            {
+              "name": "DB_NAME",
+              "value": "golang_api"
+            },
+            {
+              "name": "JWT_SECRET",
+              "value": "luiz"
+            }
+          ]
+        }]
+      }
+    }
+  }
+}
